@@ -41,10 +41,10 @@ export default function TopBar() {
               color="inherit"
               sx={{ mr: 2 }}
               onClick={() => {
-                session ? signOut() : signIn("cognito");
+                session ? signOut() : console.log("clicked");
               }}
             >
-              {session ? "Logout" : "Login"}
+              {session ? "Logout" : ""}
             </Button>
           </Toolbar>
         </AppBar>

@@ -13,5 +13,9 @@ export default function middleware(req: NextRequest) {
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
+    if (pathname === "/settings" && !req.cookies["next-auth.session-token"]) {
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
   }
 }
