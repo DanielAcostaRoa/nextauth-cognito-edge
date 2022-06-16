@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: AWS CloudFormation Template To Create a DynamoDB
+Resources:
+    NextAuthTable:
+        Type: "AWS::DynamoDB::Table"
+        Properties:
+            TableName: "next-auth"
+            AttributeDefinitions:
+                -
+                    AttributeName: "pk"
+                    AttributeType: "S"
+                -
+                    AttributeName: "sk"
+                    AttributeType: "S"
+                -
+                    AttributeName: "GSI1PK"
+                    AttributeType: "S"
+                -
+                    AttributeName: "GSI1SK"
+                    AttributeType: "S"
+            KeySchema:
+                -
+                    AttributeName: "pk"
+                    KeyType: "HASH"
+                -
+                    AttributeName: "sk"
+                    KeyType: "RANGE"
+            GlobalSecondaryIndexes:
+                -
+                    IndexName: "GSI1"
+                    Projection:
+                        ProjectionType: "ALL"
+                    KeySchema:
+                        -
+                            AttributeName: "GSI1PK"
+                            KeyType: "HASH"
+                        -
+                            AttributeName: "GSI1SK"
+                            KeyType: "RANGE"
+            TimeToLiveSpecification:
+                AttributeName: "expires"
+                Enabled: true
+            BillingMode: "PAY_PER_REQUEST"
