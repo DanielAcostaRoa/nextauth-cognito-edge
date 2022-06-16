@@ -33,6 +33,9 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
+  pages: {
+    error: "/login", // Error code passed in query string as ?error=
+  },
   jwt: {
     secret: process.env.NEXTAUTH_SECRET,
   },

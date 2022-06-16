@@ -8,6 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const darkTheme = createTheme({
   palette: {
@@ -17,12 +18,8 @@ const darkTheme = createTheme({
   },
 });
 
-interface NavBarProps {
-  isAuthenticated: boolean;
-  handleLogout: () => void;
-}
-
 export default function TopBar() {
+  const { data: session } = useSession();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
@@ -37,18 +34,17 @@ export default function TopBar() {
             >
               <MenuIcon />
             </IconButton>
-
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-              <Link href={"/"}>My Dashboard</Link>
+              <Link href={"/"}>MyDashboard</Link>
             </Typography>
             <Button
               color="inherit"
               sx={{ mr: 2 }}
               onClick={() => {
-                console.log("logout");
+                session ? signOut() : signIn("cognito");
               }}
             >
-              Logout
+              {session ? "Logout" : "Login"}
             </Button>
           </Toolbar>
         </AppBar>

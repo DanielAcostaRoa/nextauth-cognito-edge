@@ -1,9 +1,6 @@
 import Head from "next/head";
 import styles from "../../styles/Home.module.css";
-import dynamic from "next/dynamic";
-const NavBar = dynamic(() => import("../../components/navbar/TopBar"), {
-  ssr: false,
-});
+import TopBar from '../navbar/TopBar';
 
 export default function DashLayout({ children }) {
   return (
@@ -13,7 +10,7 @@ export default function DashLayout({ children }) {
         <meta name="description" content="Powered by next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar />
+      <TopBar />
       <div className={styles.container}>
         <main className={styles.main}>{children}</main>
       </div>
